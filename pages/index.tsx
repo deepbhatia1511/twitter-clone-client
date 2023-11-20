@@ -17,11 +17,12 @@ export default function Home() {
    const handleSignUpWithGoogle = useCallback(async (output: CredentialResponse) => {
       const googleToken = output.credential
       if(!googleToken) return toast.error("Google token not found")
-      const { verifyGoogleToken } = await graphqlClient.request(query1, {token: googleToken})
-      toast.success("Verification Successful!")
-      console.log(verifyGoogleToken)   
-      const jsonString = JSON.stringify(verifyGoogleToken);             //⭕⭕⭕⭕⭕⭕⭕⭕⭕⭕⭕⭕⭕⭕⭕Not Added By Piyush
-      if(jsonString) window.localStorage.setItem("_twitter_token", jsonString)
+      console.log(googleToken)
+      // const { verifyGoogleToken } = await graphqlClient.request(query1, {token: googleToken})
+      // toast.success("Verification Successful!")
+      // console.log(verifyGoogleToken)   
+      // const jsonString = JSON.stringify(verifyGoogleToken);             //⭕⭕⭕⭕⭕⭕⭕⭕⭕⭕⭕⭕⭕⭕⭕Not Added By Piyush
+      // if(jsonString) window.localStorage.setItem("_twitter_token", jsonString)
    }, [])
                               
                               
