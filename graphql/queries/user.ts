@@ -1,18 +1,16 @@
 import { graphql } from "../../gql"
-// import { TypedDocumentNode } from '@graphql-typed-document-node/core';
-import { TypedDocumentNode } from '@graphql-typed-document-node/core';
 
-export const query1 = graphql(`#graphql
+export const query1 = graphql(`
    query query1 ($token: String!) {
       verifyGoogleToken(token: $token)
    }
-`) as unknown as TypedDocumentNode<{}, { token: string }>;
+`)
 
-export const query2 = graphql(`#graphql
+export const query2 = graphql(`
    query query2 {
       getCurrentUser {
          id
-         profileImageUrl
+         profileImage
          email
          firstName
          lastName
