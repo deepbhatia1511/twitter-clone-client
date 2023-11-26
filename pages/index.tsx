@@ -1,121 +1,109 @@
 import FeedCard from "../components/FeedCard/index"
-import { CredentialResponse, GoogleLogin } from "@react-oauth/google"
-import { useCallback } from "react"
-import { toast } from "react-hot-toast"
-import { query1 } from "../graphql/queries/user"
-import { request } from "graphql-request"
-import { useCurrentUser } from "@/hooks/user"
-import { graphqlClient } from "@/clients/api"
+import { useCallback, useState } from "react"
+import { useCurrentUser } from "@/hooks/queries/user"
+import { useAllTweets } from "@/hooks/queries/tweet"
 import Image from "next/image"
-import LeftBar from "@/components/LeftBar"
-import { useQueryClient } from "@tanstack/react-query"
-import { FiMoreHorizontal } from "react-icons/fi"
+import { FaPollH } from "react-icons/fa"
+import { PiGifFill } from "react-icons/pi"
+import { IoCalendarNumber, IoSettingsOutline } from "react-icons/io5"
+import { BsFillEmojiSunglassesFill, BsImageFill } from "react-icons/bs"
+import { HiLocationMarker } from "react-icons/hi"
+import { Tweet } from "@/gql/graphql"
+import { useCreateTweet } from "@/hooks/mutations/tweet"
+import TwitterLayout from "../components/Layout/twitterLayout"
+import { GetServerSideProps } from "next"
+import { graphqlClient } from "@/clients/api"
+import { q_getAllTweets } from "@/graphql/queries/tweet"
 
-export default function Home() {
+interface HomeProps {
+   tweets?: Tweet[]
+}
+
+
+export default function Home(props: HomeProps) {
    const user = useCurrentUser()
-   const queryClient = useQueryClient()
+   // const {tweets = []} = useAllTweets()                   // This is CSR: Client Side Rendering
+   const {mutate} = useCreateTweet()
                               
-   const handleSignUpWithGoogle = useCallback(async (output: CredentialResponse) => {
-      const googleToken = output.credential
-      if(!googleToken) return toast.error("Google token not found")
-      console.log(googleToken)
-      const {verifyGoogleToken} = await graphqlClient.request(query1, {token: googleToken})
-      toast.success("Verification Successful!")
-      console.log(verifyGoogleToken)
-      if(verifyGoogleToken) window.localStorage.setItem("_twitter_token", verifyGoogleToken)
-      await queryClient.invalidateQueries({ queryKey: ["current-user"] })
-   }, [queryClient])
+                              
+                              
+   const [content, setContent] = useState("")
+                              
+                              
+                              
+   const handleCreateTweet = useCallback(() => {
+      mutate({
+         content
+      })
+   }, [content, mutate])
+                              
+                              
+                              
+   const handleSelectImage = useCallback(() => {
+      const input = document.createElement("input")
+      input.setAttribute("type", "file")
+      input.setAttribute("accept", "image/*")
+      input.click()
+   }, [])
+                              
                               
                               
                               
 	return (
-      <div className="grid grid-cols-16 h-screen w-screen pl-40">
+      <div>
+         <TwitterLayout>
                               
-                              
-         {/* LEFTBAR */}
-         <div className="col-span-3">
-            <LeftBar/>
-            {user && (
-               <div className="pt-[82px] pr-3 h-[148px]">
-                  <button className="grid grid-cols-8 hover:bg-[#181919] rounded-full p-[9.2px] w-full h-full cursor-pointer transition-all">
-                     <div className="col-span-2 pt-1 pl-2">
-                        {user.profileImage && (
-                           <Image className="rounded-full cursor-pointer" src={user?.profileImage} alt="user-image" height={43} width={43}/>
-                        )}
-                     </div>
-                              
-                     <div className="col-span-4 items-start pt-1 leading-[20px]">
-                        <h5 className="font-bold tracking-[0.020em] text-[16px] pr-5">{user.firstName} {user?.lastName}</h5>
-                        <h5 className="font-medium text-[16px] text-[#71767b]">@deepbhatia_1511</h5>
-                     </div>
-                              
-                     <div className="col-span-2">
-                        <FiMoreHorizontal className="text-[18px] rounded-full p-2 mt-1 ml-8 w-fit h-fit transition-all"/>
-                     </div>
-                  </button>
+            {/* HOMEPAGE */}
+            <div className="col-span-7 border-l-[0.5px] border-r-[0.5px] border-[#2E3236] ">
+               <div key="🛑🛑🛑🛑🛑HEADER" className="flex justify-between text-xl font-bold pl-5 pr-5 h-[54px] items-center backdrop-blur-md bg-black/60 border-b-[0.5px] border-[#2E3236] sticky top-0">
+                  <h1 className="pt-[0px]">Home</h1>
+                  <IoSettingsOutline className="cursor-pointer"/>
                </div>
-            )}
-         </div>
                               
-                              
-         {/* FEED PAGE */}
-         <div className="col-span-7 border-l-[0.5px] border-r-[0.5px] border-[#2E3236] h-screen overflow-scroll">
-            <FeedCard/>
-            <FeedCard/>
-            <FeedCard/>
-            <FeedCard/>
-            <FeedCard/>
-            <FeedCard/>
-            <FeedCard/>
-         </div>
-                              
-                              
-         {/* RIGHTBAR */}
-         <div className="col-span-4 pt-3 pl-7 ">
-            <div className="border-[0.5px] border-[#2E3236] h-[285px] w-[350px] rounded-2xl pl-3 pt-2">
-               <div className="text-[22px] font-extrabold">
-                  New to twitter?
-               </div>
-               <div className="text-[14px] text-[#71767b] tracking-tight">
-                  Sign up now to get your own personalised timeline!
-               </div>
-               <div className="pr-8 pt-3 w-full">
-                  <button className="text-[16px] text-black font-semibold tracking-tight bg-[#FFFFFF] rounded-full items-center p-2 h-[38px] w-full cursor-pointer">
-                     Sign up with Google
-                  </button>
-               </div>
-               <div className="pr-8 pt-3 w-full">
-                  <button className="text-[16px] text-black font-semibold tracking-tight bg-[#FFFFFF] rounded-full items-center p-2 h-[38px] w-full cursor-pointer">
-                     Sign up with Apple
-                  </button>
-               </div>
-               <div className="pr-8 pt-3 w-full">
-                  <button className="text-[16px] text-black font-semibold tracking-tight bg-[#FFFFFF] rounded-full items-center p-2 h-[38px] w-full cursor-pointer">
-                     Create Account
-                  </button>
-               </div>
-               <div className="text-[14px] text-[#71767b] tracking-tight pt-4 leading-4">
-                  By signing up, you agree to the Terms of Service and Privacy Policy, including Cookie Use.
-               </div>
-            </div>
-            
-            
-            <div className="pt-4">
-               <div className="bg-[#16181C] h-[285px] w-[350px] rounded-2xl pl-3 pt-2">
-                  <div className="text-[22px] font-extrabold">
-                     You might like..
+               <div key="🛑🛑🛑🛑🛑POST_TWEET_COMPONENT" className="grid grid-cols-8 border-b-[0.5px] border-[#2E3236] pb-2 transition-all cursor-pointer">
+                  <div className="col-span-1 pt-3 pl-4">
+                     {user?.profileImage && (
+                        <Image className="rounded-full cursor-pointer" src={user?.profileImage} alt="user-image" height={42} width={42}/>
+                     )}
+                     {user==null && (
+                        <Image className="rounded-full cursor-pointer" src="https://shorturl.at/ipuxA" alt="user-image" height={42} width={42}/>
+                     )}
                   </div>
-                  { user==null && (
-                     <div className="pt-2">
-                        <GoogleLogin onSuccess={handleSignUpWithGoogle}/>
+                  
+                  <div className="col-span-7 pt-[10px] pr-8">
+                     <div className="border-b-[0.5px] border-[#2E3236] pt-2 pb-5">
+                        <textarea value={content} onChange={e => setContent(e.target.value)} 
+                                 className="text-[22px] bg-transparent w-full" placeholder="What's happening?!" rows={1}></textarea>
                      </div>
-                  )}
-                  { user!=null && <h5>already signed in!</h5>}
+                     <div className="flex justify-between pt-1 pb-1">
+                        <div key="🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂" className="flex justify-start text-xl mt-2">
+                           <div className="hover:bg-[#1c9cf120] rounded-full transition-all" onClick={handleSelectImage}>
+                              <BsImageFill className="text-[#1c9cf1] text-lg p-2 pt-[10px] w-fit h-fit"/></div>
+                           <div className="hover:bg-[#1c9cf120] rounded-full transition-all">
+                              <PiGifFill className="text-[#1c9cf1] p-2 w-fit h-fit"/></div>
+                           <div className="hover:bg-[#1c9cf120] rounded-full transition-all">
+                              <FaPollH className="text-[#1c9cf1] text-lg p-2 pt-[10px] w-fit h-fit"/></div>
+                           <div className="hover:bg-[#1c9cf120] rounded-full transition-all">
+                              <BsFillEmojiSunglassesFill className="text-[#1c9cf1] text-lg p-2 pt-[10px] w-fit h-fit"/></div>
+                           <div className="hover:bg-[#1c9cf120] rounded-full transition-all">
+                              <IoCalendarNumber className="text-[#1c9cf1] p-2 w-fit h-fit"/></div>
+                           <div className="hover:bg-[#1c9cf120] rounded-full transition-all">
+                              <HiLocationMarker className="text-[#1c9cf1] p-2 w-fit h-fit"/></div>
+                        </div>
+                        
+                        <div className="pt-2">
+                           <button onClick={handleCreateTweet} className="text-[15px] font-semibold bg-[#1C9CF1] rounded-full items-center h-9 w-[75px] cursor-pointer hover:bg-opacity-90 transition-all">
+                              Post
+                           </button>
+                        </div>
+                     </div>
+                  </div>
                </div>
+                              
+               {props.tweets?.map((tweet) => tweet ? <FeedCard key={tweet?.id} data={tweet as Tweet}/> : null )}
             </div>
-         </div>
                               
-                              
+         </TwitterLayout>
       </div>
    )
 }
@@ -124,8 +112,11 @@ export default function Home() {
 
 
 
-
-
-
-
-
+export const getServerSideProps: GetServerSideProps = async (context) => {   //❇️❇️❇️❇️❇️FOR SSR: Server Side Rendering
+   const allTweets = await graphqlClient.request(q_getAllTweets)
+   return {
+      props: {
+         tweets: allTweets.getAllTweets as Tweet[]
+      },
+   }
+}
