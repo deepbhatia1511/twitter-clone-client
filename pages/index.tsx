@@ -1,5 +1,5 @@
 import FeedCard from "../components/FeedCard/index"
-import { useCallback, useEffect, useState } from "react"
+import { ChangeEvent, useCallback, useEffect, useState } from "react"
 import { useCurrentUser } from "@/hooks/queries/user"
 import { useAllTweets } from "@/hooks/queries/tweet"
 import Image from "next/image"
@@ -101,6 +101,15 @@ export default function Home(props: HomeProps) {
                               
                               
                               
+   const handleContentInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
+      const textarea = e.target;
+      textarea.style.height = 'auto'; // Reset height to auto
+      textarea.style.height = `${Math.max(textarea.scrollHeight, 38)}px` // Set height to scrollHeight or a minimum of 38px
+      setContent(textarea.value);
+   }
+                              
+                              
+                              
                               
 	return (
       <div>
@@ -108,7 +117,7 @@ export default function Home(props: HomeProps) {
                               
             {/* HOMEPAGE */}
             <div className="col-span-7 border-l-[0.5px] border-r-[0.5px] border-[#2E3236] ">
-               <div key="🛑🛑🛑🛑🛑HEADER" className="flex justify-between text-xl font-bold pl-5 pr-5 h-[54px] items-center backdrop-blur-md bg-black/60 border-b-[0.5px] border-[#2E3236] sticky top-0">
+               <div key="🛑🛑🛑🛑🛑HEADER" className="flex justify-between text-xl font-bold pl-5 pr-5 h-[54px] items-center backdrop-blur-md bg-black/40 border-b-[0.5px] border-[#2E3236] sticky top-0">
                   <h1 className="pt-[0px]">Home</h1>
                   <IoSettingsOutline className="cursor-pointer"/>
                </div>
@@ -124,8 +133,8 @@ export default function Home(props: HomeProps) {
                   
                   <div className="col-span-7 pt-[10px] pr-8">
                      <div className="border-b-[0.5px] border-[#2E3236] pt-2 pb-5">
-                        <textarea value={content} onChange={e => setContent(e.target.value)} 
-                                 className="text-[22px] bg-transparent w-full" placeholder="What's happening?!" rows={1} />
+                        <textarea value={content} onChange={handleContentInput} style={{ overflow: 'hidden', resize: 'none', minHeight: '38px'}}
+                                 className="text-[22px] bg-transparent w-full" placeholder="What's happening?!" rows={1} spellCheck={false}/>
                         {image && 
                            <div className="pt-2 relative">
                                  <div className="rounded-2xl overflow-hidden bg-transparent h-[285px] w-full">

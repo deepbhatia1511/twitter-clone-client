@@ -226,11 +226,11 @@ const TwitterLayout: React.FC<TwitterLayoutProps> = (props) => {
                               <div className="pl-1 pb-[0.6px]">Meet the developer. . .</div>
                         </div>
                            <button className="grid grid-cols-16 rounded-2xl hover:bg-[#1819196e] border-[0.5px] border-[#2E3236] p-[9.2px] w-[350px] h-full cursor-pointer transition-all">
-                              <div className="col-span-3 pl-1 pt-[0.5px]">
-                                 <Image className="rounded-full cursor-pointer" src="https://shorturl.at/fGSW5" alt="user-image" height={48} width={48}/>
+                              <div className="col-span-3 pl-1 pt-[2px]">
+                                 <Image className="rounded-full cursor-pointer" src="https://shorturl.at/fGSW5" alt="user-image" height={44} width={44}/>
                               </div>
                               <div className="flex justify-start pl-[0.6px]">
-                                 <div className="col-span-13 leading-[26px] pt-[1px]">
+                                 <div className="col-span-13 leading-[26px]">
                                     <Link href={"/clpc112qy0000f71lcfps6y0d"} className="text-[22px] pr-[122px] font-bold tracking-[0.020em] w-fit hover:underline decoration-solid">
                                        Deep Bhatia
                                     </Link>
@@ -239,17 +239,17 @@ const TwitterLayout: React.FC<TwitterLayoutProps> = (props) => {
                                        <div className="text-[16px] font-bold tracking-[0.020em]">🚀</div>
                                        <div className="text-[16px] font-bold tracking-[0.020em]">🚀</div>
                                     </div>
-                                    <div key="LINKSS" className="pt-1 leading-[22px]">
+                                    <div key="LINKSS" className="pt-1 pb-1 leading-[22px]">
                                        <a href="https://twitter.com/deepbhatia_1511" target="_blank" rel="noopener noreferrer">
                                           <div className="flex justify-start gap-2">
-                                             <div className="text-[#575b5f] font-bold">twitter:</div>
-                                             <div className="hover:underline decoration-solid hover:text-[#1d9bf0]">@deepbhatia_1511</div>
+                                             <div className="text-[#575b5fbb] font-bold">twitter:</div>
+                                             <div className="hover:underline decoration-solid hover:text-[#1d9bf0] text-[#80858a]">@deepbhatia_1511</div>
                                           </div>
                                        </a>
                                        <a href="https://github.com/deepbhatia1511" target="_blank" rel="noopener noreferrer">
                                           <div className="flex justify-start gap-2">
-                                             <div className="text-[#575B5F] font-bold">github:</div>
-                                             <div className="hover:underline decoration-solid hover:text-[#1d9bf0]">@deepbhatia1511</div>
+                                             <div className="text-[#575b5fbb] font-bold">github:</div>
+                                             <div className="hover:underline decoration-solid hover:text-[#1d9bf0] text-[#80858a]">@deepbhatia1511</div>
                                           </div>
                                        </a>
                                     </div>

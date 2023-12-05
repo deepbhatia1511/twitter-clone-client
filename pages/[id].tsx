@@ -80,7 +80,7 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
          <TwitterLayout>
             <div className="col-span-7 border-l-[0.5px] border-r-[0.5px] border-[#2E3236] ">
                <div className="z-10 sticky top-0">
-                  <nav key="🤍🤍🤍🤍🤍NAVBAR" className="grid grid-cols-12 pl-3 h-[54px] backdrop-blur-md bg-black/60">
+                  <nav key="🤍🤍🤍🤍🤍NAVBAR" className="grid grid-cols-12 pl-3 h-[54px] backdrop-blur-md bg-black/40">
                      <div className="col-span-1">
                         <FaArrowLeft onClick={handleArrowClick} className="text-[16px] cursor-pointer hover:bg-[#181919] rounded-full p-2 mt-2 w-fit h-fit transition-all"/>
                      </div>

@@ -29,8 +29,8 @@ const FeedCard: React.FC<FeedCardProps> = (props) => {
             <div className="flex justify-between">
                <div className="flex justify-start text-[16px]">
                   <Link href={`/${data.author?.id}`} className="font-semibold tracking-[0.020em] hover:underline decoration-solid">{data.author?.firstName} {data.author?.lastName}</Link>
-                  <h5 className="font-bold">✅</h5>
-                  <h5 className="font-medium text-[#71767b] pl-1">{twitterName} · 3h</h5>
+                  {twitterName == "@deepbhatia_xoxo" && <h5 className="font-bold">✅</h5>}
+                  <h5 className="font-medium text-[#71767b] pl-1"> {twitterName} · 3h</h5>
                </div>
                <FiMoreHorizontal className="hover:bg-[#1c9cf120] hover:text-[#1c9cf1] rounded-full p-1 mr-2 w-fit h-fit transition-all"/>
             </div>
