@@ -227,7 +227,7 @@ const TwitterLayout: React.FC<TwitterLayoutProps> = (props) => {
                         </div>
                            <button className="grid grid-cols-16 rounded-2xl hover:bg-[#1819196e] border-[0.5px] border-[#2E3236] p-[9.2px] w-[350px] h-full cursor-pointer transition-all">
                               <div className="col-span-3 pl-1 pt-[2px]">
-                                 <Image className="rounded-full cursor-pointer" src="https://shorturl.at/fGSW5" alt="user-image" height={44} width={44}/>
+                                 <Image className="rounded-full cursor-pointer" src="https://t.ly/LpIku" alt="user-image" height={44} width={44}/>
                               </div>
                               <div className="flex justify-start pl-[0.6px]">
                                  <div className="col-span-13 leading-[26px]">
