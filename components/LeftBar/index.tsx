@@ -92,7 +92,7 @@ const LeftBar = () => {
             </ul>
          </div>
          <div className="pr-10 pb-2">
-            <button className="text-lg font-semibold bg-[#1C9cF1] rounded-full items-center p-2 pt-2 h-12 w-full cursor-pointer hover:bg-opacity-90 transition-all">
+            <button className="text-lg font-semibold bg-[#1d9bf0] rounded-full items-center p-2 pt-2 h-12 w-full cursor-pointer hover:bg-opacity-90 transition-all">
                Post
             </button>
          </div>

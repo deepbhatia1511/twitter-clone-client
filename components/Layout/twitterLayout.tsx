@@ -3,7 +3,7 @@ import FeedCard from "../FeedCard/index"
 import { CredentialResponse, GoogleLogin } from "@react-oauth/google"
 import { useCallback, useState } from "react"
 import { toast } from "react-hot-toast"
-import { q_verifyGoogleToken } from "../../graphql/queries/user"
+import { q_userLogin, q_verifyGoogleToken } from "../../graphql/queries/user"
 import { useCurrentUser } from "@/hooks/queries/user"
 import { useAllTweets } from "@/hooks/queries/tweet"
 import { graphqlClient } from "@/clients/api"
@@ -11,18 +11,16 @@ import Image from "next/image"
 import LeftBar from "@/components/LeftBar"
 import { useQueryClient } from "@tanstack/react-query"
 import { FiMoreHorizontal } from "react-icons/fi"
-
-///////////////////////////////////////////////////////////////////////////
-import { FaPollH } from "react-icons/fa"
-import { PiGifFill } from "react-icons/pi"
-import { IoCalendarNumber } from "react-icons/io5"
-import { BsFillEmojiSunglassesFill, BsImageFill } from "react-icons/bs"
-import { HiLocationMarker } from "react-icons/hi"
 import { BiSearch } from "react-icons/bi"
-import { Maybe, Tweet, User } from "@/gql/graphql"
 import { useCreateTweet } from "@/hooks/mutations/tweet"
+import { Archivo_Black } from "next/font/google"
+import Link from "next/link"
 ///////////////////////////////////////////////////////////////////////////
 
+const archivo = Archivo_Black({
+   weight: '400',
+   preload: false,
+})
 
 
 
@@ -64,15 +62,55 @@ const TwitterLayout: React.FC<TwitterLayoutProps> = (props) => {
       if(!googleToken) return toast.error("Google token not found")
       console.log(googleToken)
       const {verifyGoogleToken} = await graphqlClient.request(q_verifyGoogleToken, {token: googleToken})
-      toast.success("Verification Successful!")
-      console.log(verifyGoogleToken)
-      if(verifyGoogleToken) window.localStorage.setItem("_twitter_token", verifyGoogleToken)
-      await queryClient.invalidateQueries({ queryKey: ["current-user"] })
+      if(!verifyGoogleToken) {
+         toast.error("Unable to Signup.")
+      } else {
+         toast.success("Verification Successful!")
+         console.log(verifyGoogleToken)
+         if(verifyGoogleToken) window.localStorage.setItem("_twitter_token", verifyGoogleToken)
+         await queryClient.invalidateQueries({ queryKey: ["current-user"] })
+      }
    }, [queryClient])
                               
                               
                               
-                              
+   const handleLogin = useCallback(async() => {
+      const enteredEmail = prompt('Enter your email:')
+      if (enteredEmail) {
+         console.log(enteredEmail)
+         const {userLogin} = await graphqlClient.request(q_userLogin, {email: enteredEmail})
+         if(!userLogin) {
+            toast.error("User with this email doesnt exist.")
+         } else {
+            toast.success("Login Successful!")
+            console.log(userLogin)
+            if(userLogin) window.localStorage.setItem("_twitter_token", userLogin)
+            await queryClient.invalidateQueries({ queryKey: ["current-user"] })
+         }
+      }
+   }, [queryClient])
+   
+   
+   const handleLogout = async() => {
+      const confirmLogout = window.confirm('Do you want to log out?')
+      if (confirmLogout) {
+         localStorage.removeItem("_twitter_token")
+         await queryClient.invalidateQueries({ queryKey: ["current-user"] })       // OPTION !
+         // window.location.reload()                                               // OPTION 2
+      }
+   }
+   
+   
+   const handleCreator = () => {
+      <Link href={"/clpc112qy0000f71lcfps6y0d"}/>
+   }
+   
+   
+   
+   
+   const first_name = user?.firstName?.toLowerCase()
+   const last_name = user?.lastName?.toLowerCase()
+   const twitterName = `@${first_name}${last_name}_xoxo`
                               
                               
    return(
@@ -87,21 +125,20 @@ const TwitterLayout: React.FC<TwitterLayoutProps> = (props) => {
                </div>
                {user!=null && (
                   <div className="pt-[82px] pr-3 h-[148px] fixed bottom-2 left-29">
-                     <button className="grid grid-cols-8 hover:bg-[#181919] rounded-full p-[9.2px] w-[250px] h-full cursor-pointer transition-all">
-                        <div className="col-span-2 pt-[3px] pl-1">
+                     <button className="grid grid-cols-16 hover:bg-[#181919] rounded-full border-[0.5px] border-[#2E3236] p-[9.2px] w-[250px] h-full cursor-pointer transition-all">
+                        <div className="col-span-4 pl-1">
                            {user.profileImage && (
                               <Image className="rounded-full cursor-pointer" src={user?.profileImage} alt="user-image" height={43} width={43}/>
                            )}
                         </div>
-                                 
-                        <div className="col-span-4 items-start pt-1 leading-[20px]">
-                           <h5 className="font-bold tracking-[0.020em] text-[16px] pr-5">{user.firstName} {user?.lastName}</h5>
-                           <h5 className="font-medium text-[16px] text-[#71767b]">@deepbhatia_1511</h5>
+                              
+                        <div className="col-span-12 flex justify-start leading-[22px] pt-[2px]">
+                           <button onClick={handleLogout}>
+                              <div className="text-[20px] font-bold tracking-[0.020em] w-fit">{user.firstName} {user?.lastName}</div>
+                              <div className="text-[15px] text-[#575B5F] font-bold tracking-[0.020em]">{twitterName}</div>
+                           </button>
                         </div>
-                                 
-                        <div className="col-span-2">
-                           <FiMoreHorizontal className="text-[18px] rounded-full p-2 mt-1 ml-8 w-fit h-fit transition-all"/>
-                        </div>
+                           
                      </button>
                   </div>
                )}
@@ -121,56 +158,120 @@ const TwitterLayout: React.FC<TwitterLayoutProps> = (props) => {
             {/* RIGHTBAR */}
             <div className="col-span-4 pt-1 pl-7">
                <div className="sticky top-1">
-               <div className="pb-3">
-                  <div className="bg-[rgb(22,24,28)] h-[45px] w-[350px] rounded-full pl-4 pt-[11px]">
-                     <div className="flex items-center gap-5">
-                        <BiSearch className="text-[20px] text-[#71767b]"/>
-                        <h4 className="text-[15px] text-[#71767b]">Search</h4>
-                     </div>
-                  </div>
-               </div>
-               
-               
-               <div className="border-[0.5px] border-[#2E3236] h-[285px] w-[350px] rounded-2xl pl-3 pt-3">
-                  <div className="text-[22px] font-extrabold">
-                     New to twitter?
-                  </div>
-                  <div className="text-[14px] text-[#71767b] tracking-tight">
-                     Sign up now to get your own personalised timeline!
-                  </div>
-                  <div className="pr-8 pt-3 w-full">
-                     <button className="text-[16px] text-black font-semibold tracking-tight bg-[#FFFFFF] rounded-full items-center p-2 h-[38px] w-full cursor-pointer">
-                        Sign up with Google
-                     </button>
-                  </div>
-                  <div className="pr-8 pt-3 w-full">
-                     <button className="text-[16px] text-black font-semibold tracking-tight bg-[#FFFFFF] rounded-full items-center p-2 h-[38px] w-full cursor-pointer">
-                        Sign up with Apple
-                     </button>
-                  </div>
-                  <div className="pr-8 pt-3 w-full">
-                     <button className="text-[16px] text-black font-semibold tracking-tight bg-[#FFFFFF] rounded-full items-center p-2 h-[38px] w-full cursor-pointer">
-                        Create Account
-                     </button>
-                  </div>
-                  <div className="text-[14px] text-[#71767b] tracking-tight pt-4 leading-4">
-                     By signing up, you agree to the Terms of Service and Privacy Policy, including Cookie Use.
-                  </div>
-               </div>
-               
-               
-               <div className="pt-4">
-                  <div className="bg-[#16181C] h-[285px] w-[350px] rounded-2xl pl-3 pt-2">
-                     <div className="text-[22px] font-extrabold">
-                        You might like..
-                     </div>
-                     { user==null && (
-                        <div className="pt-2">
-                           <GoogleLogin onSuccess={handleSignUpWithGoogle}/>
+                  <div className="pb-3">
+                     <div className="bg-[rgb(22,24,28)] h-[45px] w-[350px] rounded-full pl-4 pt-[11px]">
+                        <div className="flex items-center gap-5">
+                           <BiSearch className="text-[20px] text-[#71767b]"/>
+                           <h4 className="text-[15px] text-[#71767b]">Search</h4>
                         </div>
-                     )}
+                     </div>
                   </div>
-               </div>
+                  
+                  
+                  
+                  { user==null && (
+                     <div key="❤️❤️❤️❤️❤️LOGINS AND SIGNUPS❤️❤️❤️❤️❤️">
+                        <div className="border-[0.5px] border-[#2E3236] h-[304px] w-[350px] rounded-2xl pl-3 pt-3">
+                           <div className={archivo.className}>
+                              <div className="text-[22px] font-extrabold">
+                                 New to twitter?
+                              </div>
+                           </div>
+                           <div className="text-[14px] text-[#71767b] tracking-tight">
+                              Sign up now to get your own personalised timeline!
+                           </div>
+                           <div className="pr-8 pt-3 w-full">
+                              <button className="flex justify-center bg-[#FFFFFF] overflow-hidden rounded-full h-[38px] w-full cursor-pointer">
+                                 <div className="p">
+                                    <GoogleLogin onSuccess={handleSignUpWithGoogle}/>
+                                 </div>
+                              </button>
+                           </div>
+                           <div className="pr-8 pt-2 w-full">
+                              <button className="text-[15px] text-black font-semibold bg-[#FFFFFF] rounded-full items-center p-1 h-[38px] w-full cursor-pointer">
+                                 Sign up with Apple
+                              </button>
+                           </div>
+                           <div key="DIVIDER" className="flex items-center gap-2 pr-8 pt-1">
+                              <div className="bg-[#2E3236] w-[133px] h-[0.5px]"></div>
+                              <div className="text-[16px]">or</div>
+                              <div className="bg-[#2E3236] w-[133px] h-[0.5px]"></div>
+                           </div>
+                           <div className="pr-8 pt-1 w-full">
+                              <button className="text-[16px] text-black font-semibold  bg-[#1d9bf0] rounded-full items-center p-1 h-[38px] w-full cursor-pointer">
+                                 Create Account
+                              </button>
+                           </div>
+                           <div className="text-[14px] text-[#71767b] tracking-tight pt-4 leading-4">
+                              By signing up, you agree to the Terms of Service and Privacy Policy, including Cookie Use.
+                           </div>
+                        </div>
+                        
+                        
+                        <div className="pt-4 pb-3">
+                           <div className={archivo.className}>
+                              <div className="pl-1 pb-[0.6px]">Already have an account?</div>
+                           </div>
+                           <button onClick={handleLogin} className="text-[16px] font-bold border-[0.5px] text-[#1d9bf0] b-[0.5px] border-[#2E3236] rounded-full items-center h-9 w-[350px] cursor-pointer hover:bg-[#020f18] hover:text-[#1c9cf1] hover:border-[#06385f] transition-all">
+                              Log in
+                           </button>
+                        </div>
+                     </div>
+                  )}
+                  
+                  
+                  
+                  <div className="pt-2 pb-3">
+                        <div className={archivo.className}>
+                              <div className="pl-1 pb-[0.6px]">Meet the developer. . .</div>
+                        </div>
+                           <button className="grid grid-cols-16 rounded-2xl hover:bg-[#1819196e] border-[0.5px] border-[#2E3236] p-[9.2px] w-[350px] h-full cursor-pointer transition-all">
+                              <div className="col-span-3 pl-1 pt-[0.5px]">
+                                 <Image className="rounded-full cursor-pointer" src="https://shorturl.at/fGSW5" alt="user-image" height={48} width={48}/>
+                              </div>
+                              <div className="flex justify-start pl-[0.6px]">
+                                 <div className="col-span-13 leading-[26px] pt-[1px]">
+                                    <Link href={"/clpc112qy0000f71lcfps6y0d"} className="text-[22px] pr-[122px] font-bold tracking-[0.020em] w-fit hover:underline decoration-solid">
+                                       Deep Bhatia
+                                    </Link>
+                                    <div className="flex">
+                                       <div className="text-[16px] text-[#80858a] font-bold tracking-[0.020em] w-fit">Full_Stack_Web_Developer</div>
+                                       <div className="text-[16px] font-bold tracking-[0.020em]">🚀</div>
+                                       <div className="text-[16px] font-bold tracking-[0.020em]">🚀</div>
+                                    </div>
+                                    <div key="LINKSS" className="pt-1 leading-[22px]">
+                                       <a href="https://twitter.com/deepbhatia_1511" target="_blank" rel="noopener noreferrer">
+                                          <div className="flex justify-start gap-2">
+                                             <div className="text-[#575b5f] font-bold">twitter:</div>
+                                             <div className="hover:underline decoration-solid hover:text-[#1d9bf0]">@deepbhatia_1511</div>
+                                          </div>
+                                       </a>
+                                       <a href="https://github.com/deepbhatia1511" target="_blank" rel="noopener noreferrer">
+                                          <div className="flex justify-start gap-2">
+                                             <div className="text-[#575B5F] font-bold">github:</div>
+                                             <div className="hover:underline decoration-solid hover:text-[#1d9bf0]">@deepbhatia1511</div>
+                                          </div>
+                                       </a>
+                                    </div>
+                                 </div>
+                              </div>
+                           </button>
+                  </div>
+                  
+                  
+                  
+                  <div className="pt-1">
+                     <div className="bg-[#16181C] h-[250px] w-[350px] rounded-2xl pl-3 pt-2">
+                        <div className={archivo.className}>
+                           <div className="text-[22px] font-extrabold">
+                              You might like..
+                           </div>
+                        </div>
+                        <div className="text-[16px]">
+                           This component is in development
+                        </div>
+                     </div>
+                  </div>
                </div>
             </div>
                               

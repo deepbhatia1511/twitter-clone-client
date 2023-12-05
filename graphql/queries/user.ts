@@ -25,6 +25,18 @@ export const q_getCurrentUser = graphql(`
                profileImage
             }
          }
+         followers {
+            id
+            firstName
+            lastName
+            profileImage
+         }
+         followings {
+            id
+            firstName
+            lastName
+            profileImage
+         }
       }
    }
 `)
@@ -47,7 +59,25 @@ export const q_getUserById = graphql(`
             image
             content
          }
+         followers {
+            id
+            firstName
+            lastName
+            profileImage
+         }
+         followings {
+            id
+            firstName
+            lastName
+            profileImage
+         }
       }
    }
 `)
 
+
+export const q_userLogin = graphql(`
+   query q_userLogin($email: String!) {
+      userLogin(email: $email)
+   }
+`)

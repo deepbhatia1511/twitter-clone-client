@@ -15,3 +15,9 @@ export const q_getAllTweets = graphql(`
 		}
 	}
 `);
+
+export const q_getSignedUrlForImage = graphql(`
+   query q_getSignedUrlForImage($imageName: String!, $imageType: String!) {
+      getSignedUrlForImage(imageName: $imageName, imageType: $imageType)
+   }
+`)
