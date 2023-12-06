@@ -15,7 +15,7 @@ const queryClient = new QueryClient()
 
 export default function App({ Component, pageProps }: AppProps) {
 	return (
-      <div className={`${maven.className} bg-red-500`}>
+      <div className={`${maven.className} bg-red-600 min-h-screen`}>
          <QueryClientProvider client={queryClient}>
             <GoogleOAuthProvider clientId="931575770036-fosk1nk1lqarjjqqn3m096valo5c08bp.apps.googleusercontent.com">
                <Component {...pageProps} />
