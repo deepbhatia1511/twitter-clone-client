@@ -105,7 +105,7 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
                      <div>
                         <h1 className="text-2xl text-[#71767b] font-bold pl-4">{twitterName}</h1>
                      </div>
-                     {props.userInfo?.id !== currentUser?.id && (
+                     {currentUser?.id && props.userInfo?.id !== currentUser?.id && (
                         <>
                            {amIfollowing
                               ? <button onClick={handleUnfollowUser} className="text-[16px] font-bold border-[0.5px] text-black bg-white rounded-full items-center h-9 w-[112px] cursor-pointer transition-all">
@@ -117,7 +117,7 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
                            }
                         </>
                      )}
-                     {props.userInfo?.id === currentUser?.id && (
+                     {currentUser?.id && props.userInfo?.id === currentUser?.id && (
                         <button className="text-[16px] font-bold border-[0.5px] border-[#536471] rounded-full items-center h-9 w-[112px] cursor-pointer hover:bg-[rgb(22,24,28)]  transition-all">
                            Edit profile
                         </button>
