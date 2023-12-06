@@ -18,14 +18,6 @@ export default function App({ Component, pageProps }: AppProps) {
       <div className={maven.className}>
          <QueryClientProvider client={queryClient}>
             <GoogleOAuthProvider clientId="931575770036-fosk1nk1lqarjjqqn3m096valo5c08bp.apps.googleusercontent.com">
-               <style global jsx>{`
-                  body {
-                     margin: 0;
-                     padding: 0;
-                     min-height: 100vh;
-                     background-color: #000000; // Set your preferred shade of red
-                  }
-               `}</style>
                <Component {...pageProps} />
                <Toaster/>
                <ReactQueryDevtools/>
