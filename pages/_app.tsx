@@ -23,7 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
                      margin: 0;
                      padding: 0;
                      min-height: 100vh;
-                     background-color: #ff0000; // Set your preferred shade of red
+                     background-color: #000000; // Set your preferred shade of red
                   }
                `}</style>
                <Component {...pageProps} />
