@@ -147,7 +147,7 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
                   </div>
                </div>
                               
-               {props.userInfo?.tweets?.map((tweet) =>  <FeedCard key={tweet?.id} data={tweet as Tweet}/>)}
+               {props.userInfo?.tweets?.slice().reverse().map((tweet) => <FeedCard key={tweet?.id} data={tweet as Tweet} />)}
             </div>
          </TwitterLayout>
       </div>
