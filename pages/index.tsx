@@ -58,7 +58,7 @@ export default function Home(props: HomeProps) {
    }, [content, image, mutateAsync])
                               
    const handleCreateTweetWithoutUser = () => {
-      toast.error("You need to have an account to tweet something")
+      toast.error("You need to have an account to tweet something!")
    }
                               
    const handleInputChangeFile = useCallback((input: HTMLInputElement) => {
@@ -71,13 +71,13 @@ export default function Home(props: HomeProps) {
             imageType: file.type
          })
          if(getSignedUrlForImage) {
-            toast.loading("uploading...", {id: "2"})
+            toast.loading("Uploading...", {id: "2"})
             await axios.put(getSignedUrlForImage, file, {
                headers: {
                   "Content-Type": file.type
                }
             })
-            toast.success("uploaded", {id: "2"})
+            toast.success("Uploaded!", {id: "2"})
             const url = new URL(getSignedUrlForImage)
             const myFilePath = `${url.origin}${url.pathname}`
             setImage(myFilePath)

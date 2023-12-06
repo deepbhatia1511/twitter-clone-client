@@ -11,6 +11,7 @@ import { Share_Tech_Mono, Source_Code_Pro, Space_Mono, Spline_Sans_Mono } from "
 import Image from "next/image"
 import {useRouter} from "next/router"
 import { useCallback, useMemo } from "react"
+import toast from "react-hot-toast"
 import { FaArrowLeft } from "react-icons/fa6"
 
 const space = Share_Tech_Mono({
@@ -72,7 +73,9 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
    }, [props.userInfo?.id, queryClient])
    
    
-   
+   const handleFollowWithoutAccount = () => {
+      toast.error("You need to have an account to follow this user!")
+   }
    
    
    return (
@@ -117,6 +120,11 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
                      {props.userInfo?.id === currentUser?.id && (
                         <button className="text-[16px] font-bold border-[0.5px] border-[#536471] rounded-full items-center h-9 w-[112px] cursor-pointer hover:bg-[rgb(22,24,28)]  transition-all">
                            Edit profile
+                        </button>
+                     )}
+                     {!currentUser?.id && (
+                        <button onClick={handleFollowWithoutAccount} className="text-[16px] font-bold border-[0.5px] border-[#536471] rounded-full items-center h-9 w-[112px] cursor-pointer hover:bg-[#020f18] hover:text-[#1c9cf1] hover:border-[#06385f] transition-all">
+                           Follow
                         </button>
                      )}
                   </div>

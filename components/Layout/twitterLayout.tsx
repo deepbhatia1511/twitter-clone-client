@@ -59,11 +59,11 @@ const TwitterLayout: React.FC<TwitterLayoutProps> = (props) => {
                               
    const handleSignUpWithGoogle = useCallback(async (output: CredentialResponse) => {
       const googleToken = output.credential
-      if(!googleToken) return toast.error("Google token not found")
+      if(!googleToken) return toast.error("Google token not found!")
       console.log(googleToken)
       const {verifyGoogleToken} = await graphqlClient.request(q_verifyGoogleToken, {token: googleToken})
       if(!verifyGoogleToken) {
-         toast.error("Unable to Signup.")
+         toast.error("Unable to Signup!")
       } else {
          toast.success("Verification Successful!")
          console.log(verifyGoogleToken)
@@ -80,7 +80,7 @@ const TwitterLayout: React.FC<TwitterLayoutProps> = (props) => {
          console.log(enteredEmail)
          const {userLogin} = await graphqlClient.request(q_userLogin, {email: enteredEmail})
          if(!userLogin) {
-            toast.error("User with this email doesnt exist.")
+            toast.error("User with this email doesnt exist!")
          } else {
             toast.success("Login Successful!")
             console.log(userLogin)
