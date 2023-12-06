@@ -10,7 +10,7 @@ import type {GetServerSideProps, NextPage} from "next"
 import { Share_Tech_Mono, Source_Code_Pro, Space_Mono, Spline_Sans_Mono } from "next/font/google"
 import Image from "next/image"
 import {useRouter} from "next/router"
-import { useCallback, useMemo } from "react"
+import { useCallback, useMemo, useState } from "react"
 import toast from "react-hot-toast"
 import { FaArrowLeft } from "react-icons/fa6"
 
@@ -43,6 +43,11 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
    const queryClient = useQueryClient()
    const router = useRouter();
    
+   
+   const [followersCount, setFollowersCount] = useState(props.userInfo?.followers?.length || 0)
+   
+   
+   
    const handleArrowClick = () => {
       router.push('/')
    }
@@ -61,16 +66,17 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
    const handleFollowUser = useCallback(async() => {
       if(!props.userInfo?.id) return
       await graphqlClient.request(m_followUser, {to: props.userInfo?.id})
+      setFollowersCount((x) => x + 1)
       await queryClient.invalidateQueries({ queryKey: ["current-user"] })
-   }, [props.userInfo?.id, queryClient])
+   }, [props.userInfo?.id, setFollowersCount, queryClient])
    
    
    const handleUnfollowUser = useCallback(async() => {
-      console.log(props.userInfo?.id)
       if(!props.userInfo?.id) return
       await graphqlClient.request(m_unfollowUser, {to: props.userInfo?.id})
+      setFollowersCount((x) => x - 1)
       await queryClient.invalidateQueries({ queryKey: ["current-user"] })
-   }, [props.userInfo?.id, queryClient])
+   }, [props.userInfo?.id, setFollowersCount, queryClient])
    
    
    const handleFollowWithoutAccount = () => {
@@ -146,7 +152,7 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
                         <div className={space.className}>
                            {props.userInfo?.followers?.length !== undefined && (
                               <h1 className="text-4xl">
-                                 {props.userInfo.followers.length < 10 ? `0${props.userInfo.followers.length}` : props.userInfo.followers.length}
+                                 {followersCount < 10 ? `0${followersCount}` : followersCount}
                               </h1>
                            )}
                         </div>
