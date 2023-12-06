@@ -16,8 +16,8 @@
 	}
 }
 
-.red-background {
-	background-color: black;
+body {
+	background: black
 }
 
 *:focus {
