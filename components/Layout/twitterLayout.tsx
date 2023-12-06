@@ -95,7 +95,8 @@ const TwitterLayout: React.FC<TwitterLayoutProps> = (props) => {
       const confirmLogout = window.confirm('Do you want to log out?')
       if (confirmLogout) {
          localStorage.removeItem("_twitter_token")
-         await queryClient.invalidateQueries({ queryKey: ["current-user"] })       // OPTION !
+         toast.success("Logged out!")
+         await queryClient.invalidateQueries({ queryKey: ["current-user"] })       // OPTION 1
          // window.location.reload()                                               // OPTION 2
       }
    }
