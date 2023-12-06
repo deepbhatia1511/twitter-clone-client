@@ -52,9 +52,9 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
    
    const amIfollowing = useMemo(() => {
       if(!props.userInfo) return false
-      const followersOfThisUser = props.userInfo?.followers ?? []     //⭕⭕⭕⭕concept of "Optional Chaining" and "Nullish Coalescing"
-      return followersOfThisUser.findIndex(e => e?.id === currentUser?.id) >= 0;
-   }, [currentUser?.id, props.userInfo])
+      const whomIamFollowing = currentUser?.followings ?? []     //⭕⭕⭕⭕concept of "Optional Chaining" and "Nullish Coalescing"
+      return whomIamFollowing.findIndex(e => e?.id === props.userInfo?.id) >= 0;
+   }, [currentUser, props.userInfo])
    
    
    const handleFollowUser = useCallback(async() => {
