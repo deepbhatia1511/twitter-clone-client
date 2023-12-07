@@ -37,7 +37,7 @@ const FeedCard: React.FC<FeedCardProps> = (props) => {
                               
             <p className="text-white text-[16px] leading-5">{data.content}</p>
             {data.image && <div className="pt-2 pr-2">
-               <div className="rounded-2xl overflow-hidden bg-transparent h-[285px] w-full">
+               <div className="rounded-2xl overflow-hidden bg-transparent h-full w-full">
                   <Image style={{objectFit: "cover", width: "100%", height: "100%"}} src={data.image} alt={"tweet-image"} width={600} height={300}/>
                </div>
             </div>}

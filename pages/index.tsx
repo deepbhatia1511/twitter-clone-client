@@ -137,7 +137,7 @@ export default function Home(props: HomeProps) {
                                  className="text-white text-[22px] bg-transparent w-full" placeholder="What's happening?!" rows={1} spellCheck={false}/>
                         {image && 
                            <div className="pt-2 relative">
-                                 <div className="rounded-2xl overflow-hidden bg-transparent h-[285px] w-full">
+                                 <div className="rounded-2xl overflow-hidden bg-transparent h-full w-full">
                                     <Image style={{objectFit: "cover", width: "100%", height: "100%"}} src={image} alt={"bg-image"} width={600} height={300}/>
                                  </div>
                                  <button onClick={handleRemoveImage} className="text-white bg-black opacity-60 p-2 rounded-full absolute top-4 right-2">
