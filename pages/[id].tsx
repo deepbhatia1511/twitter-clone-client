@@ -91,10 +91,10 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
                <div className="z-10 sticky top-0">
                   <nav key="🤍🤍🤍🤍🤍NAVBAR" className="grid grid-cols-12 pl-3 h-[54px] backdrop-blur-md bg-black/40">
                      <div className="col-span-1">
-                        <FaArrowLeft onClick={handleArrowClick} className="text-[16px] cursor-pointer hover:bg-[#181919] rounded-full p-2 mt-2 w-fit h-fit transition-all"/>
+                        <FaArrowLeft onClick={handleArrowClick} className="text-white text-[16px] cursor-pointer hover:bg-[#181919] rounded-full p-2 mt-2 w-fit h-fit transition-all"/>
                      </div>
                      <div className="col-span-11 flex justify-between">
-                        <h1 className="font-bold text-xl mt-[10px]">{props.userInfo?.firstName} {props.userInfo?.lastName}</h1>
+                        <h1 className="text-white font-bold text-xl mt-[10px]">{props.userInfo?.firstName} {props.userInfo?.lastName}</h1>
                         <h1 className="font-[100] text-lg mt-[12px] text-[#71767b] pr-5">{props.userInfo?.tweets?.length} tweets</h1>
                      </div>
                   </nav>
@@ -117,19 +117,19 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
                               ? <button onClick={handleUnfollowUser} className="text-[16px] font-bold border-[0.5px] text-black bg-white rounded-full items-center h-9 w-[112px] cursor-pointer transition-all">
                                     Following
                               </button>
-                              : <button onClick={handleFollowUser} className="text-[16px] font-bold border-[0.5px] border-[#536471] rounded-full items-center h-9 w-[112px] cursor-pointer hover:bg-[#020f18] hover:text-[#1c9cf1] hover:border-[#06385f] transition-all">
+                              : <button onClick={handleFollowUser} className="text-white text-[16px] font-bold border-[0.5px] border-[#536471] rounded-full items-center h-9 w-[112px] cursor-pointer hover:bg-[#020f18] hover:text-[#1c9cf1] hover:border-[#06385f] transition-all">
                                     Follow
                               </button>
                            }
                         </>
                      )}
                      {currentUser?.id && props.userInfo?.id === currentUser?.id && (
-                        <button className="text-[16px] font-bold border-[0.5px] border-[#536471] rounded-full items-center h-9 w-[112px] cursor-pointer hover:bg-[rgb(22,24,28)]  transition-all">
+                        <button className="text-white text-[16px] font-bold border-[0.5px] border-[#536471] rounded-full items-center h-9 w-[112px] cursor-pointer hover:bg-[rgb(22,24,28)]  transition-all">
                            Edit profile
                         </button>
                      )}
                      {!currentUser?.id && (
-                        <button onClick={handleFollowWithoutAccount} className="text-[16px] font-bold border-[0.5px] border-[#536471] rounded-full items-center h-9 w-[112px] cursor-pointer hover:bg-[#020f18] hover:text-[#1c9cf1] hover:border-[#06385f] transition-all">
+                        <button onClick={handleFollowWithoutAccount} className="text-white text-[16px] font-bold border-[0.5px] border-[#536471] rounded-full items-center h-9 w-[112px] cursor-pointer hover:bg-[#020f18] hover:text-[#1c9cf1] hover:border-[#06385f] transition-all">
                            Follow
                         </button>
                      )}
@@ -141,7 +141,7 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
                      <div className="flex gap-1">
                         <div className={space.className}>
                            {props.userInfo?.followings?.length !== undefined && (
-                              <h1 className="text-4xl">
+                              <h1 className="text-white text-4xl">
                                  {props.userInfo.followings.length < 10 ? `0${props.userInfo.followings.length}` : props.userInfo.followings.length}
                               </h1>
                            )}
@@ -151,7 +151,7 @@ const UserProfilePage: NextPage<ServerProps> = (props) => {
                      <div className="flex gap-1">
                         <div className={space.className}>
                            {props.userInfo?.followers?.length !== undefined && (
-                              <h1 className="text-4xl">
+                              <h1 className="text-white text-4xl">
                                  {followersCount < 10 ? `0${followersCount}` : followersCount}
                               </h1>
                            )}

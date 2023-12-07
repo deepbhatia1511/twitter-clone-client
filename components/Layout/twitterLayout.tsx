@@ -135,7 +135,7 @@ const TwitterLayout: React.FC<TwitterLayoutProps> = (props) => {
                               
                         <div className="col-span-12 flex justify-start leading-[22px] pt-[2px]">
                            <button onClick={handleLogout}>
-                              <div className="text-[20px] font-bold tracking-[0.020em] w-fit">{user.firstName} {user?.lastName}</div>
+                              <div className="text-white text-[20px] font-bold tracking-[0.020em] w-fit">{user.firstName} {user?.lastName}</div>
                               <div className="text-[15px] text-[#575B5F] font-bold tracking-[0.020em]">{twitterName}</div>
                            </button>
                         </div>
@@ -174,7 +174,7 @@ const TwitterLayout: React.FC<TwitterLayoutProps> = (props) => {
                      <div key="❤️❤️❤️❤️❤️LOGINS AND SIGNUPS❤️❤️❤️❤️❤️">
                         <div className="border-[0.5px] border-[#2E3236] h-[304px] w-[350px] rounded-2xl pl-3 pt-3">
                            <div className={archivo.className}>
-                              <div className="text-[22px] font-extrabold">
+                              <div className="text-white text-[22px] font-extrabold">
                                  New to twitter?
                               </div>
                            </div>
@@ -195,11 +195,11 @@ const TwitterLayout: React.FC<TwitterLayoutProps> = (props) => {
                            </div>
                            <div key="DIVIDER" className="flex items-center gap-2 pr-8 pt-1">
                               <div className="bg-[#2E3236] w-[133px] h-[0.5px]"></div>
-                              <div className="text-[16px]">or</div>
+                              <div className="text-white text-[16px]">or</div>
                               <div className="bg-[#2E3236] w-[133px] h-[0.5px]"></div>
                            </div>
                            <div className="pr-8 pt-1 w-full">
-                              <button className="text-[16px] text-black font-semibold  bg-[#1d9bf0] rounded-full items-center p-1 h-[38px] w-full cursor-pointer">
+                              <button className="text-white text-[16px] text-black font-semibold  bg-[#1d9bf0] rounded-full items-center p-1 h-[38px] w-full cursor-pointer">
                                  Create Account
                               </button>
                            </div>
@@ -211,9 +211,9 @@ const TwitterLayout: React.FC<TwitterLayoutProps> = (props) => {
                         
                         <div className="pt-4 pb-3">
                            <div className={archivo.className}>
-                              <div className="pl-1 pb-[0.6px]">Already have an account?</div>
+                              <div className="text-white pl-1 pb-[0.6px]">Already have an account?</div>
                            </div>
-                           <button onClick={handleLogin} className="text-[16px] font-bold border-[0.5px] text-[#1d9bf0] b-[0.5px] border-[#2E3236] rounded-full items-center h-9 w-[350px] cursor-pointer hover:bg-[#020f18] hover:text-[#1c9cf1] hover:border-[#06385f] transition-all">
+                           <button onClick={handleLogin} className="text-[16px] font-medium border-[0.5px] text-[#1d9bf0] b-[0.5px] border-[#2E3236] rounded-full items-center h-9 w-[350px] cursor-pointer hover:bg-[#020f18] hover:font-bold hover:text-[#1c9cf1] hover:border-[#06385f] transition-all">
                               Log in
                            </button>
                         </div>
@@ -224,7 +224,7 @@ const TwitterLayout: React.FC<TwitterLayoutProps> = (props) => {
                   
                   <div className="pt-2 pb-3">
                         <div className={archivo.className}>
-                              <div className="pl-1 pb-[0.6px]">Meet the developer. . .</div>
+                              <div className="text-white pl-1 pb-[0.6px]">Meet the developer. . .</div>
                         </div>
                            <button className="grid grid-cols-16 rounded-2xl hover:bg-[#1819196e] border-[0.5px] border-[#2E3236] p-[9.2px] w-[350px] h-full cursor-pointer transition-all">
                               <div className="col-span-3 pl-1 pt-[2px]">
@@ -232,7 +232,7 @@ const TwitterLayout: React.FC<TwitterLayoutProps> = (props) => {
                               </div>
                               <div className="flex justify-start pl-[0.6px]">
                                  <div className="col-span-13 leading-[26px]">
-                                    <Link href={"/clpc112qy0000f71lcfps6y0d"} className="text-[22px] pr-[122px] font-bold tracking-[0.020em] w-fit hover:underline decoration-solid">
+                                    <Link href={"/clpc112qy0000f71lcfps6y0d"} className="text-white text-[22px] pr-[122px] font-bold tracking-[0.020em] w-fit hover:underline decoration-solid">
                                        Deep Bhatia
                                     </Link>
                                     <div className="flex">
@@ -264,15 +264,26 @@ const TwitterLayout: React.FC<TwitterLayoutProps> = (props) => {
                   <div className="pt-1">
                      <div className="bg-[#16181C] h-[250px] w-[350px] rounded-2xl pl-3 pt-2">
                         <div className={archivo.className}>
-                           <div className="text-[22px] font-extrabold">
+                           <div className="text-white text-[22px] font-extrabold">
                               You might like..
                            </div>
                         </div>
-                        <div className="text-[16px]">
+                        <div className="text-white text-[16px]">
                            This component is in development
                         </div>
                      </div>
                   </div>
+                           
+                  {user!=null && (
+                     <div className="pt-4 pb-3">
+                        <div className={archivo.className}>
+                           <div className="text-white pl-1 pb-[0.6px]">Wanna Logout?</div>
+                        </div>
+                        <button onClick={handleLogout} className="text-[16px] font-medium border-[0.5px] text-white b-[0.5px] border-[#2E3236] rounded-full items-center h-9 w-[350px] cursor-pointer hover:bg-[#180205] hover:font-bold hover:text-[#EA202C] hover:border-[#5D070E] transition-all">
+                           Log out
+                        </button>
+                     </div>
+                  )}
                </div>
             </div>
                               

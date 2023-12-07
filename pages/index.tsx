@@ -118,8 +118,8 @@ export default function Home(props: HomeProps) {
             {/* HOMEPAGE */}
             <div className="col-span-7 border-l-[0.5px] border-r-[0.5px] border-[#2E3236] ">
                <div key="🛑🛑🛑🛑🛑HEADER" className="flex justify-between text-xl font-bold pl-5 pr-5 h-[54px] items-center backdrop-blur-md bg-black/40 border-b-[0.5px] border-[#2E3236] sticky top-0">
-                  <h1 className="pt-[0px]">Home</h1>
-                  <IoSettingsOutline className="cursor-pointer"/>
+                  <h1 className="text-white pt-[0px]">Home</h1>
+                  <IoSettingsOutline className="text-white cursor-pointer"/>
                </div>
                               
                <div key="🛑🛑🛑🛑🛑POST_TWEET_COMPONENT" className="grid grid-cols-8 border-b-[0.5px] border-[#2E3236] pb-2 transition-all cursor-pointer">
@@ -134,13 +134,13 @@ export default function Home(props: HomeProps) {
                   <div className="col-span-7 pt-[10px] pr-8">
                      <div className="border-b-[0.5px] border-[#2E3236] pt-2 pb-5">
                         <textarea value={content} onChange={handleContentInput} style={{ overflow: 'hidden', resize: 'none', minHeight: '38px'}}
-                                 className="text-[22px] bg-transparent w-full" placeholder="What's happening?!" rows={1} spellCheck={false}/>
+                                 className="text-white text-[22px] bg-transparent w-full" placeholder="What's happening?!" rows={1} spellCheck={false}/>
                         {image && 
                            <div className="pt-2 relative">
                                  <div className="rounded-2xl overflow-hidden bg-transparent h-[285px] w-full">
                                     <Image style={{objectFit: "cover", width: "100%", height: "100%"}} src={image} alt={"bg-image"} width={600} height={300}/>
                                  </div>
-                                 <button onClick={handleRemoveImage} className="bg-black opacity-60 p-2 rounded-full absolute top-4 right-2">
+                                 <button onClick={handleRemoveImage} className="text-white bg-black opacity-60 p-2 rounded-full absolute top-4 right-2">
                                     <IoClose className="text-2xl"/>
                                  </button>
                            </div>
@@ -163,13 +163,13 @@ export default function Home(props: HomeProps) {
                         </div>
                         
                         <div className="pt-2">
-                           {user && content && !image && <button onClick={handleCreateTweet} className="text-[15px] font-semibold bg-[#1d9bf0] rounded-full items-center h-9 w-[75px] cursor-pointer hover:bg-opacity-90 transition-all">
+                           {user && content && !image && <button onClick={handleCreateTweet} className="text-white text-[15px] font-semibold bg-[#1d9bf0] rounded-full items-center h-9 w-[75px] cursor-pointer hover:bg-opacity-90 transition-all">
                               Post
                            </button>}
-                           {user && image && !content && <button onClick={handleCreateTweet} className="text-[15px] font-semibold bg-[#1d9bf0] rounded-full items-center h-9 w-[75px] cursor-pointer hover:bg-opacity-90 transition-all">
+                           {user && image && !content && <button onClick={handleCreateTweet} className="text-white text-[15px] font-semibold bg-[#1d9bf0] rounded-full items-center h-9 w-[75px] cursor-pointer hover:bg-opacity-90 transition-all">
                               Post
                            </button>}
-                           {user && content && image && <button onClick={handleCreateTweet} className="text-[15px] font-semibold bg-[#1d9bf0] rounded-full items-center h-9 w-[75px] cursor-pointer hover:bg-opacity-90 transition-all">
+                           {user && content && image && <button onClick={handleCreateTweet} className="text-white text-[15px] font-semibold bg-[#1d9bf0] rounded-full items-center h-9 w-[75px] cursor-pointer hover:bg-opacity-90 transition-all">
                               Post
                            </button>}
                            {!user && <button onClick={handleCreateTweetWithoutUser} className="text-[15px] font-semibold text-gray-400 bg-[#1d9cf09a] rounded-full items-center h-9 w-[75px] cursor-pointer transition-all">

@@ -78,10 +78,10 @@ const LeftBar = () => {
    
    return (
       <div className="sticky top-0">
-         <div className="text-3xl hover:bg-[#181919] rounded-full p-3 w-fit h-fit cursor-pointer transition-all">
+         <div className="text-white text-3xl hover:bg-[#181919] rounded-full p-3 w-fit h-fit cursor-pointer transition-all">
             <FaXTwitter/>
          </div>
-         <div className="pb-2">
+         <div className="pb-2 text-white ">
             <ul>
                {leftBarButtons.map(item => <li key={item.title}>
                   <Link href={item.link} className="flex justify-start items-center gap-4 hover:bg-[#181919] rounded-full p-[9.2px] w-fit h-fit cursor-pointer transition-all">
@@ -92,7 +92,7 @@ const LeftBar = () => {
             </ul>
          </div>
          <div className="pr-10 pb-2">
-            <button className="text-lg font-semibold bg-[#1d9bf0] rounded-full items-center p-2 pt-2 h-12 w-full cursor-pointer hover:bg-opacity-90 transition-all">
+            <button className="text-white text-lg font-semibold bg-[#1d9bf0] rounded-full items-center p-2 pt-2 h-12 w-full cursor-pointer hover:bg-opacity-90 transition-all">
                Post
             </button>
          </div>

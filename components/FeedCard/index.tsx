@@ -26,16 +26,16 @@ const FeedCard: React.FC<FeedCardProps> = (props) => {
          </div>
          
          <div className="col-span-7 pt-[10px] pr-2">
-            <div className="flex justify-between">
+            <div className="flex justify-between pb-1">
                <div className="flex justify-start text-[16px]">
-                  <Link href={`/${data.author?.id}`} className="font-semibold tracking-[0.020em] hover:underline decoration-solid">{data.author?.firstName} {data.author?.lastName}</Link>
+                  <Link href={`/${data.author?.id}`} className="text-white font-semibold tracking-[0.020em] hover:underline decoration-solid">{data.author?.firstName} {data.author?.lastName}</Link>
                   {twitterName == "@deepbhatia_xoxo" && <h5 className="font-bold">✅</h5>}
                   <h5 className="font-medium text-[#71767b] pl-1"> {twitterName} · 3h</h5>
                </div>
-               <FiMoreHorizontal className="hover:bg-[#1c9cf120] hover:text-[#1c9cf1] rounded-full p-1 mr-2 w-fit h-fit transition-all"/>
+               <FiMoreHorizontal className="text-white hover:bg-[#1c9cf120] hover:text-[#1c9cf1] rounded-full p-1 mr-2 w-fit h-fit transition-all"/>
             </div>
                               
-            <p className="text-[16px] leading-5">{data.content}</p>
+            <p className="text-white text-[16px] leading-5">{data.content}</p>
             {data.image && <div className="pt-2 pr-2">
                <div className="rounded-2xl overflow-hidden bg-transparent h-[285px] w-full">
                   <Image style={{objectFit: "cover", width: "100%", height: "100%"}} src={data.image} alt={"tweet-image"} width={600} height={300}/>
@@ -44,18 +44,18 @@ const FeedCard: React.FC<FeedCardProps> = (props) => {
                               
             <div key="🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂" className="flex justify-between text-lg mt-1">
                <div className="hover:bg-[#1c9cf120] rounded-full transition-all">
-                  <FaRegComment className="hover:text-[#1c9cf1] p-2 w-fit h-fit"/></div>
+                  <FaRegComment className="text-white hover:text-[#1c9cf1] p-2 w-fit h-fit"/></div>
                <div className="hover:bg-[#1ea87c20] rounded-full transition-all">
-                  <FiRefreshCcw className=" hover:text-[#1ea87c] p-2 w-fit h-fit"/></div>
+                  <FiRefreshCcw className="text-white hover:text-[#1ea87c] p-2 w-fit h-fit"/></div>
                <div className="hover:bg-[#F9188020] rounded-full transition-all">
-                  <FaRegHeart className=" hover:text-[#F91880] p-2 w-fit h-fit"/></div>
+                  <FaRegHeart className="text-white hover:text-[#F91880] p-2 w-fit h-fit"/></div>
                <div className="hover:bg-[#1c9cf120] rounded-full transition-all">
-                  <IoIosStats className=" hover:text-[#1c9cf1] text-[21px] p-2 w-fit h-fit"/></div>
+                  <IoIosStats className="text-white hover:text-[#1c9cf1] text-[21px] p-2 w-fit h-fit"/></div>
                <div className="flex">
                      <div className="hover:bg-[#1c9cf120] rounded-full transition-all">
-                        <BiBookmark className=" hover:text-[#1c9cf1] p-2 w-fit h-fit"/></div>
+                        <BiBookmark className="text-white hover:text-[#1c9cf1] p-2 w-fit h-fit"/></div>
                      <div className="hover:bg-[#1c9cf120] rounded-full transition-all">
-                        <FiUpload className=" hover:text-[#1c9cf1] p-2 w-fit h-fit"/></div>
+                        <FiUpload className="text-white hover:text-[#1c9cf1] p-2 w-fit h-fit"/></div>
                </div>
             </div>
             
